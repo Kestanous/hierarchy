@@ -14,10 +14,7 @@ export default class Layout extends Component {
 
     return(
       <MuiThemeProvider muiTheme={getMuiTheme(theme)}>
-        <div>
-          <AppBar title="My AppBar" />
-          {this.props.children}
-        </div>
+        {this.props.children}
       </MuiThemeProvider>
     );
   }

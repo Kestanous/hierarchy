@@ -1,1 +1,4 @@
 /* CSS declarations go here */
+.stats {
+	max-width: 50vw;
+}
