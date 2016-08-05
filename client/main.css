@@ -1,4 +1,41 @@
 /* CSS declarations go here */
+
+.container {
+	display: flex; 
+	flex-direction: row;
+}
+
+.character {
+	width: 75vw;	
+	padding: 0 10px;
+}
+
+.bio {
+	margin-bottom: 20px;
+}
+
+.stuff {
+	display: flex; 
+	flex-direction: row;
+}
+
 .stats {
-	max-width: 50vw;
+	min-width: 25vw;
+}
+
+.abilities {
+	flex-grow: 1;
+	overflow: scroll;
+	margin-left: 50px;
+}
+
+.chatLog {
+	width: 25vw;
+}
+
+.chatLog .log {
+	position: fixed;
+	height: 100vh;
+	width: 25vw;
+	overflow: scroll;
 }
