@@ -26,9 +26,9 @@ class Stats extends Component {
 	 getBadge(text) {
   	if (text) {
   		if (text > 0) {
-  			return <Badge badgeContent={text} primary={true} />
-  		} else {
   			return <Badge badgeContent={text} secondary={true} />
+  		} else {
+  			return <Badge badgeContent={text} primary={true} />
   		}
   	} else return <div />
   }
