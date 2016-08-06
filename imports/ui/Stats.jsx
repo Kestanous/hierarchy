@@ -54,7 +54,7 @@ export default class Stats extends Component {
 			    {this.state.toEdit.map((stat, i) => {
 						return (
 			      	<div key={i}>
-                <TextField key={i} value={stat.value} floatingLabelText={stat.name} floatingLabelFixed={true}
+                <TextField key={i} value={stat.value} floatingLabelText={stat.name} floatingLabelFixed={true} fullWidth={true}
                   onChange={(event) => {
                     let toEdit = this.state.toEdit
                     toEdit[i].value = event.target.value

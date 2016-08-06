@@ -8,6 +8,7 @@ body {
 	display: flex;
 	flex-direction: row;
 	margin-top: 5px;
+  margin-bottom: 100px;
 }
 
 .character {
@@ -25,11 +26,11 @@ body {
 }
 
 .stats {
-	min-width: 25vw;
+	width: 25vw;
 }
 
 .items {
-	min-width: 25vw;
+	width: 25vw;
 }
 
 .abilities {
@@ -39,7 +40,8 @@ body {
 }
 
 .abilities .abilityEdit {
-	flex-direction: column;
+	margin: 0 20px 0 1px;
+  padding: 0 0 10px 5px;
 }
 
 .NavBar {
@@ -56,12 +58,12 @@ body {
   top: 73px;
   right: 1vw;
   width: 24vw;
-  display: flex;
 }
 
 .chatLog .log {
-	display: flex;
-  flex-grow: 1;
+	height: 100%;
+  width: 100%;
   overflow: scroll;
+  display: flex;
   flex-direction: column-reverse;
 }

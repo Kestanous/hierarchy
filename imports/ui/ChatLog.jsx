@@ -6,10 +6,28 @@ import Paper from 'material-ui/Paper';
 
 
 class ChatLog extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {offset: 73}
+  }
+
+  componentDidMount() {
+    window.addEventListener('scroll', this.handleScroll.bind(this));
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll.bind(this));
+  }
+
+  handleScroll(event) {
+    let offset = (73 - document.body.scrollTop)
+    if (offset < 5) offset = 5
+    this.setState({offset})
+  }
+
 	render() {
     return(
-
-			<Paper className='log-container' zDepth={1}>
+			<Paper style={{top: this.state.offset + 'px'}} className='log-container' zDepth={1}>
         <div className='log'>
           hi
         </div>

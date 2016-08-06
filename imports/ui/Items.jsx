@@ -15,7 +15,7 @@ import ActionSettings from 'material-ui/svg-icons/action/settings';
 import SaveButton from './SaveButton';
 
 import TextField from 'material-ui/TextField';
-
+import { Characters } from '../api/collections.jsx';
 
 export default class Items extends Component {
 	constructor() {
@@ -48,10 +48,20 @@ export default class Items extends Component {
 			    {this.getItems().map((stat, i) => {
 						return (
 			      	<div key={i}>
-                <TextField hintText="0" value={stat.name}
-                  floatingLabelText="Name" floatingLabelFixed={true}/>
-                <TextField hintText="0" value={stat.value}
-                  floatingLabelText="Amount" floatingLabelFixed={true}/>
+                <TextField hintText="0" value={stat.name} style={{width: '75%'}}
+                  floatingLabelText="Name" floatingLabelFixed={true}
+                  onChange={(event) => {
+                    let toEdit = this.state.toEdit
+                    toEdit[i].name = event.target.value
+                    this.setState({toEdit})
+                  }}/>
+                <TextField hintText="0" value={stat.value} style={{width: '25%'}}
+                  floatingLabelText="Amount" floatingLabelFixed={true}
+                  onChange={(event) => {
+                    let toEdit = this.state.toEdit
+                    toEdit[i].value = event.target.value
+                    this.setState({toEdit})
+                  }}/>
 			      	</div>
 			      )
 			    })}
@@ -62,7 +72,7 @@ export default class Items extends Component {
 				<List>
 			    <Subheader>{this.getHeader()}</Subheader>
 		    	{this.getItems().map((stat, i) => {
-		    		return <ListItem key={i} primaryText={stat.name} rightIcon={this.getBadge(stat.value)} />
+		    		return <ListItem key={i} disabled={true} primaryText={stat.name} rightIcon={this.getBadge(stat.value)} />
 		    	})}
 		    </List>
 			)
@@ -75,7 +85,19 @@ export default class Items extends Component {
   }
 
   onEditToggle() {
-  	this.setState({edit: !this.state.edit})
+    if (this.state.edit) {
+      let items = []
+      for (item of this.state.toEdit) {
+        let sanitized = item
+        sanitized.value = parseInt(sanitized.value) || 0
+        if (sanitized.value < 1) sanitized.value = 0
+        items.push(sanitized)
+      }
+      Characters.update({_id: this.props.character._id}, {$set: {items}})
+    } else {
+      this.setState({toEdit: this.props.character.items})
+    }
+    this.setState({edit: !this.state.edit})
   }
 
 

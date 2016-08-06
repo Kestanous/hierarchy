@@ -9,7 +9,8 @@ import ActionDone from 'material-ui/svg-icons/action/done';
 import SaveButton from './SaveButton';
 
 import TextField from 'material-ui/TextField';
-
+import Paper from 'material-ui/Paper';
+import { Characters } from '../api/collections.jsx';
 
 
 export default class Abilities extends Component {
@@ -34,13 +35,26 @@ export default class Abilities extends Component {
         <div>
           <h2>{this.getHeader()}</h2>
           {this.props.character.abilities.map((ability, i) => {
-            return( 
-              <div key={i} className="abilityEdit">
-                <TextField value={ability.name}
-                  floatingLabelText="Name" floatingLabelFixed={true}/>
-                <TextField value={ability.text}
-                  floatingLabelText="Description" floatingLabelFixed={true} multiLine={true} rows={2}/>
-              </div> )
+            return(
+              <Paper key={i} className="abilityEdit">
+                <div>
+                  <TextField value={ability.name} floatingLabelText="Name" floatingLabelFixed={true}
+                  onChange={(event) => {
+                    let toEdit = this.state.toEdit
+                    toEdit[i].name = event.target.value
+                    this.setState({toEdit})
+                  }}/>
+                </div>
+                <div>
+                  <TextField value={ability.text} floatingLabelText="Description"
+                    floatingLabelFixed={true} multiLine={true} fullWidth={true}
+                    onChange={(event) => {
+                      let toEdit = this.state.toEdit
+                      toEdit[i].text = event.target.value
+                      this.setState({toEdit})
+                    }}/>
+                </div>
+              </Paper> )
           })}
         </div>)
     } else {
@@ -55,6 +69,11 @@ export default class Abilities extends Component {
     }
   }
   onEditToggle() {
+    if (this.state.edit) {
+      Characters.update({_id: this.props.character._id}, {$set: {abilities: this.state.toEdit}})
+    } else {
+      this.setState({toEdit: this.props.character.abilities})
+    }
     this.setState({edit: !this.state.edit})
   }
 }
