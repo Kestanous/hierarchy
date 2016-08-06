@@ -4,6 +4,7 @@ import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import AppBar from 'material-ui/AppBar';
+import NavBar from './NavBar';
 
 
 export default class Layout extends Component {
@@ -14,7 +15,10 @@ export default class Layout extends Component {
 
     return(
       <MuiThemeProvider muiTheme={getMuiTheme(theme)}>
-        {this.props.children}
+        <div>
+          <NavBar />
+          {this.props.children}
+        </div>
       </MuiThemeProvider>
     );
   }

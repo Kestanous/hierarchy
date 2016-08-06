@@ -9,7 +9,7 @@ class ChatLog extends Component {
 	render() {
     return(
 
-			<Paper className='container' zDepth={1}>
+			<Paper className='log-container' zDepth={1}>
         <div className='log'>
           hi
         </div>
