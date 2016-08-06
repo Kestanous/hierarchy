@@ -17,11 +17,16 @@ import SaveButton from './SaveButton';
 
 import TextField from 'material-ui/TextField';
 
+import { Characters } from '../api/collections.jsx';
 
-class Stats extends Component {
-	constructor() {
-		super()
-		this.state = {edit: false}
+
+export default class Stats extends Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+      edit: false,
+      toEdit: props.character.stats
+    }
 	}
 
 	 getBadge(text) {
@@ -46,11 +51,16 @@ class Stats extends Component {
 	    return (
 		    <div>
 			    <h2>{this.getHeader()}</h2>
-			    {this.getStats().map((stat, i) => {
+			    {this.state.toEdit.map((stat, i) => {
 						return (
-			      	<div>
-                <TextField key={i} hintText="0" value={stat.value}
-                  floatingLabelText={stat.name} floatingLabelFixed={true}/>
+			      	<div key={i}>
+                <TextField key={i} value={stat.value} floatingLabelText={stat.name} floatingLabelFixed={true}
+                  onChange={(event) => {
+                    let toEdit = this.state.toEdit
+                    toEdit[i].value = parseInt(event.target.value) || 0
+                    this.setState({toEdit})
+                  }}
+                  />
 			      	</div>
 			      )
 			    })}
@@ -60,7 +70,7 @@ class Stats extends Component {
 			return (
 				<List>
 			    <Subheader>{this.getHeader()}</Subheader>
-		    	{this.getStats().map((stat, i) => {
+		    	{this.props.character.stats.map((stat, i) => {
 		    		return <ListItem key={i} primaryText={stat.name} rightIcon={this.getBadge(stat.value)} />
 		    	})}
 		    </List>
@@ -68,19 +78,15 @@ class Stats extends Component {
 		}
   }
 
-  getStats() {
-  	if (!this.props.character.stats) return []
-  	return this.props.character.stats
-  }
-
   onEditToggle() {
+    if (this.state.edit) {
+      Characters.update({_id: this.props.character._id}, {$set: {
+        stats: this.state.toEdit
+      }})
+    } else {
+      this.setState({toEdit: this.props.character.stats})
+    }
   	this.setState({edit: !this.state.edit})
   }
 
-
 }
-
-//meteorize the class
-export default createContainer(() => {
-  return {};
-}, Stats);

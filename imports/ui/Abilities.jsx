@@ -12,9 +12,12 @@ import SaveButton from './SaveButton';
 
 
 export default class Abilities extends Component {
-  constructor() {
-		super()
-		this.state = {edit: false}
+  constructor(props) {
+		super(props)
+		this.state = {
+      edit: false,
+      toEdit: props.character.abilities
+    }
 	}
 
   getHeader() {
@@ -33,16 +36,12 @@ export default class Abilities extends Component {
       return(
   			<List className="scroll-view">
           <Subheader>{this.getHeader()}</Subheader>
-          {this.getAbilities().map((ability, i) => {
+          {this.props.character.abilities.map((ability, i) => {
             return( <ListItem key={i} primaryText={ability.name} secondaryText={ability.text} /> )
           })}
        	</List>
       )
     }
-  }
-  getAbilities() {
-    if (!this.props.character.abilities) return []
-  	return this.props.character.abilities
   }
   onEditToggle() {
     this.setState({edit: !this.state.edit})
