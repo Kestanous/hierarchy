@@ -33,9 +33,9 @@ export default class Abilities extends Component {
           {this.getAbilities().map((ability, i) => {
             return( 
               <div key={i} className="abilityEdit">
-                <TextField hintText="0" value={ability.name}
+                <TextField value={ability.name}
                   floatingLabelText="Name" floatingLabelFixed={true}/>
-                <TextField hintText="0" value={ability.text}
+                <TextField value={ability.text}
                   floatingLabelText="Description" floatingLabelFixed={true} multiLine={true} rows={2}/>
               </div> )
           })}
