@@ -38,7 +38,7 @@ class Stats extends Component {
   getHeader() {
   	return(<div>
   		Status
-    	<IconButton onClick={this.onEditToggle.bind(this)} iconStyle={{width: 16, height: 16}} 
+    	<IconButton onClick={this.onEditToggle.bind(this)} iconStyle={{width: 16, height: 16}}
 	    	style={{ width: 24, height: 24, padding: 0, }}>
 	      <ActionBuild />
 	    </IconButton>
@@ -51,12 +51,12 @@ class Stats extends Component {
 		    <div>
 			    <h2>{this.getHeader()}</h2>
 			    {this.getStats().map((stat, i) => {
-						return (<TextField key={i} hintText="0" value={stat.value}
-			      	floatingLabelText={stat.name} floatingLabelFixed={true}/>
+						return (
 			      	<div>
-			      		
+                <TextField key={i} hintText="0" value={stat.value}
+                  floatingLabelText={stat.name} floatingLabelFixed={true}/>
 			      	</div>
-			      	)
+			      )
 			    })}
 			  </div>
 	    );
@@ -71,7 +71,7 @@ class Stats extends Component {
 			)
 		}
   }
-  
+
   getStats() {
   	// {this.getItem('Strength', -1)}
   	// {this.getItem('Agility', 0)}

@@ -1,5 +1,13 @@
 import { Meteor } from 'meteor/meteor';
+import { Characters } from '../imports/api/collections.jsx';
 
 Meteor.startup(() => {
-  // code to run on server at startup
+  if (!Characters.find().count()) {
+    Characters.insert({
+      name: 'willow',
+      stats: {},
+      itmes: {},
+      abilities: {}
+    })
+  }
 });
