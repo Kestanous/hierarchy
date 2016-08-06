@@ -1,8 +1,13 @@
 /* CSS declarations go here */
 
+body {
+	margin: 0;
+}
+
 .container {
 	display: flex;
 	flex-direction: row;
+	margin-top: 5px;
 }
 
 .character {
@@ -37,21 +42,26 @@
 	flex-direction: column;
 }
 
+.NavBar {
+
+}
+
 .chatLog {
 	width: 25vw;
 }
 
-.chatLog .container {
+.chatLog .log-container {
 	position: fixed;
   bottom: 1vh;
-  top: 1vh;
+  top: 69px;
   right: 1vw;
   width: 24vw;
+  display: flex;
 }
 
 .chatLog .log {
+	display: flex;
   flex-grow: 1;
   overflow: scroll;
-  display: flex;
   flex-direction: column-reverse;
 }

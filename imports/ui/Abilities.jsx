@@ -33,7 +33,7 @@ export default class Abilities extends Component {
       return(
         <div>
           <h2>{this.getHeader()}</h2>
-          {this.getAbilities().map((ability, i) => {
+          {this.props.character.abilities.map((ability, i) => {
             return( 
               <div key={i} className="abilityEdit">
                 <TextField value={ability.name}
