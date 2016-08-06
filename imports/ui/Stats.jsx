@@ -57,7 +57,7 @@ export default class Stats extends Component {
                 <TextField key={i} value={stat.value} floatingLabelText={stat.name} floatingLabelFixed={true}
                   onChange={(event) => {
                     let toEdit = this.state.toEdit
-                    toEdit[i].value = parseInt(event.target.value) || 0
+                    toEdit[i].value = event.target.value
                     this.setState({toEdit})
                   }}
                   />
@@ -80,9 +80,13 @@ export default class Stats extends Component {
 
   onEditToggle() {
     if (this.state.edit) {
-      Characters.update({_id: this.props.character._id}, {$set: {
-        stats: this.state.toEdit
-      }})
+      let stats = []
+      for (stat of this.state.toEdit) {
+        let sanitizedStat = stat
+        sanitizedStat.value = parseInt(sanitizedStat.value) || 0
+        stats.push(sanitizedStat)
+      }
+      Characters.update({_id: this.props.character._id}, {$set: {stats}})
     } else {
       this.setState({toEdit: this.props.character.stats})
     }
