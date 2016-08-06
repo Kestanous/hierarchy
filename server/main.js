@@ -5,9 +5,9 @@ Meteor.startup(() => {
   if (!Characters.find().count()) {
     Characters.insert({
       name: 'willow',
-      stats: {},
-      itmes: {},
-      abilities: {}
+      stats: [],
+      itmes: [],
+      abilities: []
     })
   }
 });

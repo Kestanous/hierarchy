@@ -1,12 +1,12 @@
 /* CSS declarations go here */
 
 .container {
-	display: flex; 
+	display: flex;
 	flex-direction: row;
 }
 
 .character {
-	width: 75vw;	
+	width: 75vw;
 	padding: 0 10px;
 }
 
@@ -15,7 +15,7 @@
 }
 
 .stuff {
-	display: flex; 
+	display: flex;
 	flex-direction: row;
 }
 
@@ -33,9 +33,17 @@
 	width: 25vw;
 }
 
-.chatLog .log {
+.chatLog .container {
 	position: fixed;
-	height: 100vh;
-	width: 25vw;
-	overflow: scroll;
+  bottom: 1vh;
+  top: 1vh;
+  right: 1vw;
+  width: 24vw;
+}
+
+.chatLog .log {
+  flex-grow: 1;
+  overflow: scroll;
+  display: flex;
+  flex-direction: column-reverse;
 }

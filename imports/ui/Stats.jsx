@@ -16,8 +16,6 @@ import ActionBuild from 'material-ui/svg-icons/action/build';
 
 import TextField from 'material-ui/TextField';
 
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-
 
 class Stats extends Component {
 	constructor() {
@@ -37,7 +35,7 @@ class Stats extends Component {
 
   getHeader() {
   	return(<div>
-  		Status
+  		Stats
     	<IconButton onClick={this.onEditToggle.bind(this)} iconStyle={{width: 16, height: 16}}
 	    	style={{ width: 24, height: 24, padding: 0, }}>
 	      <ActionBuild />
@@ -73,14 +71,8 @@ class Stats extends Component {
   }
 
   getStats() {
-  	// {this.getItem('Strength', -1)}
-  	// {this.getItem('Agility', 0)}
-  	// {this.getItem('Intelligence', 0)}
-  	// {this.getItem('Spirit', 1)}
-  	// {this.getItem('Vigor', 0)}
-  	return [
-  		{name: 'Strength', value: -1},
-  	]
+  	if (!this.props.character.stats) return []
+  	return this.props.character.stats
   }
 
   onEditToggle() {

@@ -9,8 +9,10 @@ class ChatLog extends Component {
 	render() {
     return(
 
-			<Paper className='log' zDepth={1}>
-    	 hi
+			<Paper className='container' zDepth={1}>
+        <div className='log'>
+          hi
+        </div>
   		</Paper>
 
     )

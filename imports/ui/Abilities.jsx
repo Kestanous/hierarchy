@@ -3,61 +3,48 @@ import { createContainer } from 'meteor/react-meteor-data';
 
 import {List, ListItem} from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
-import Divider from 'material-ui/Divider';
+import IconButton from 'material-ui/IconButton';
+import ActionBuild from 'material-ui/svg-icons/action/build';
 
 
-class Abilities extends Component {
+
+export default class Abilities extends Component {
+  constructor() {
+		super()
+		this.state = {edit: false}
+	}
+
+  getHeader() {
+    return(<div>
+      Abilities
+      <IconButton onClick={this.onEditToggle.bind(this)} iconStyle={{width: 16, height: 16}}
+        style={{ width: 24, height: 24, padding: 0, }}>
+        <ActionBuild />
+      </IconButton>
+    </div>)
+  }
+
 	render() {
-    return(
-
-			<List className="scroll-view">
-        <ListItem
-          primaryText="Mind Scry"
-          secondaryText="Caster attempts to scry the mind of a single target"
-        />
-        <ListItem
-          primaryText="Mind Crush"
-          secondaryText="Caster attempts to crush the mind of a single target"
-        />
-        <ListItem
-          primaryText="Rediculous"
-          secondaryText="This is a rediculous ability that takes a very long time to explain and has very many steps to it. It would take forever to fully explain this ability and all that it can do."
-        />
-        <ListItem
-          primaryText="Mind Crush"
-          secondaryText="Caster attempts to crush the mind of a single target"
-        />
-        <ListItem
-          primaryText="Mind Crush"
-          secondaryText="Caster attempts to crush the mind of a single target"
-        />
-        <ListItem
-          primaryText="Mind Crush"
-          secondaryText="Caster attempts to crush the mind of a single target"
-        />
-        <ListItem
-          primaryText="Mind Crush"
-          secondaryText="Caster attempts to crush the mind of a single target"
-        />
-        <ListItem
-          primaryText="Mind Crush"
-          secondaryText="Caster attempts to crush the mind of a single target"
-        />
-        <ListItem
-          primaryText="Mind Crush"
-          secondaryText="Caster attempts to crush the mind of a single target"
-        />
-        <ListItem
-          primaryText="Mind Crush"
-          secondaryText="Caster attempts to crush the mind of a single target"
-        />
-     	</List>
-
-    )
+    if (this.state.edit) {
+      return(<div>
+        <h2>{this.getHeader()}</h2>
+      </div>)
+    } else {
+      return(
+  			<List className="scroll-view">
+          <Subheader>{this.getHeader()}</Subheader>
+          {this.getAbilities().map((ability, i) => {
+            return( <ListItem key={i} primaryText={ability.name} secondaryText={ability.text} /> )
+          })}
+       	</List>
+      )
+    }
+  }
+  getAbilities() {
+    if (!this.props.character.abilities) return []
+  	return this.props.character.abilities
+  }
+  onEditToggle() {
+    this.setState({edit: !this.state.edit})
   }
 }
-
-//meteorize the class
-export default createContainer(() => {
-  return {};
-}, Abilities);
