@@ -48,8 +48,10 @@ export default class Items extends Component {
 			    {this.getItems().map((stat, i) => {
 						return (
 			      	<div key={i}>
+                <TextField hintText="0" value={stat.name}
+                  floatingLabelText="Name" floatingLabelFixed={true}/>
                 <TextField hintText="0" value={stat.value}
-                  floatingLabelText={stat.name} floatingLabelFixed={true}/>
+                  floatingLabelText="Amount" floatingLabelFixed={true}/>
 			      	</div>
 			      )
 			    })}
