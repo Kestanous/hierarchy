@@ -33,6 +33,10 @@
 	margin-left: 50px;
 }
 
+.abilities .abilityEdit {
+	flex-direction: column;
+}
+
 .chatLog {
 	width: 25vw;
 }

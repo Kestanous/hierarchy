@@ -8,6 +8,7 @@ import ActionSettings from 'material-ui/svg-icons/action/settings';
 import ActionDone from 'material-ui/svg-icons/action/done';
 import SaveButton from './SaveButton';
 
+import TextField from 'material-ui/TextField';
 
 
 
@@ -26,9 +27,19 @@ export default class Abilities extends Component {
 
 	render() {
     if (this.state.edit) {
-      return(<div>
-        <h2>{this.getHeader()}</h2>
-      </div>)
+      return(
+        <div>
+          <h2>{this.getHeader()}</h2>
+          {this.getAbilities().map((ability, i) => {
+            return( 
+              <div key={i} className="abilityEdit">
+                <TextField hintText="0" value={ability.name}
+                  floatingLabelText="Name" floatingLabelFixed={true}/>
+                <TextField hintText="0" value={ability.text}
+                  floatingLabelText="Description" floatingLabelFixed={true} multiLine={true} rows={2}/>
+              </div> )
+          })}
+        </div>)
     } else {
       return(
   			<List className="scroll-view">
