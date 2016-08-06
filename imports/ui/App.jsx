@@ -2,6 +2,9 @@ import React, { Component, PropTypes } from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 
 //ui
+import Divider from 'material-ui/Divider';
+
+//components
 import CharacterBio from './CharacterBio';
 import Stats from './Stats';
 import Abilities from './Abilities';
@@ -18,6 +21,7 @@ class App extends Component {
 	        <div className='stuff'>
 		        <div className='stats'>
 		        	<Stats />
+		        	<Divider />
 		        </div>
 		        <div className='abilities'>
 		        	<Abilities />
