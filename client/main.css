@@ -23,6 +23,10 @@
 	min-width: 25vw;
 }
 
+.items {
+	min-width: 25vw;
+}
+
 .abilities {
 	flex-grow: 1;
 	overflow: scroll;

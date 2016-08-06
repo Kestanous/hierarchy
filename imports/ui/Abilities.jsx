@@ -4,7 +4,10 @@ import { createContainer } from 'meteor/react-meteor-data';
 import {List, ListItem} from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 import IconButton from 'material-ui/IconButton';
-import ActionBuild from 'material-ui/svg-icons/action/build';
+import ActionSettings from 'material-ui/svg-icons/action/settings';
+import ActionDone from 'material-ui/svg-icons/action/done';
+import SaveButton from './SaveButton';
+
 
 
 
@@ -17,10 +20,7 @@ export default class Abilities extends Component {
   getHeader() {
     return(<div>
       Abilities
-      <IconButton onClick={this.onEditToggle.bind(this)} iconStyle={{width: 16, height: 16}}
-        style={{ width: 24, height: 24, padding: 0, }}>
-        <ActionBuild />
-      </IconButton>
+      <SaveButton active={this.state.edit} onClick={this.onEditToggle.bind(this)} />
     </div>)
   }
 

@@ -12,6 +12,7 @@ import CharacterBio from './CharacterBio';
 import Stats from './Stats';
 import Abilities from './Abilities';
 import ChatLog from './ChatLog';
+import Items from './Items';
 
 class App extends Component {
   render() {
@@ -28,6 +29,7 @@ class App extends Component {
 		        <div className='stats'>
 		        	<Stats character={character} />
 		        	<Divider />
+		        	<Items character={character} />
 		        </div>
 		        <div className='abilities'>
 		        	<Abilities character={character} />

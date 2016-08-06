@@ -14,7 +14,7 @@ Meteor.startup(() => {
         {name: "Charisma", value: 0},
         {name: "Perception", value: 0}
       ],
-      itmes: [
+      items: [
         {name: "Gold", value: 50},
         {name: "Scrolls", value: 1},
         {name: "Fans", value: 40},

@@ -11,7 +11,8 @@ import Badge from 'material-ui/Badge';
 import Divider from 'material-ui/Divider';
 import Subheader from 'material-ui/Subheader';
 import IconButton from 'material-ui/IconButton';
-import ActionBuild from 'material-ui/svg-icons/action/build';
+import ActionSettings from 'material-ui/svg-icons/action/settings';
+import SaveButton from './SaveButton';
 
 
 import TextField from 'material-ui/TextField';
@@ -36,10 +37,7 @@ class Stats extends Component {
   getHeader() {
   	return(<div>
   		Stats
-    	<IconButton onClick={this.onEditToggle.bind(this)} iconStyle={{width: 16, height: 16}}
-	    	style={{ width: 24, height: 24, padding: 0, }}>
-	      <ActionBuild />
-	    </IconButton>
+    	<SaveButton active={this.state.edit} onClick={this.onEditToggle.bind(this)} />
 		</div>)
   }
 
