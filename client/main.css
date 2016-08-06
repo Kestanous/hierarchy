@@ -53,7 +53,7 @@ body {
 .chatLog .log-container {
 	position: fixed;
   bottom: 1vh;
-  top: 69px;
+  top: 73px;
   right: 1vw;
   width: 24vw;
   display: flex;
