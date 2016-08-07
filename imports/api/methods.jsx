@@ -1,8 +1,9 @@
 import { Email } from 'meteor/email'
 
 export default methods = {
-  inviteUser() {
-
+  inviteUser(email, gameId) {
+    user = Accounts.findUserByEmail(email)
+    //TODO
   },
   userForgotPassword(email) {
     let password = makePassword(), user = Accounts.findUserByEmail(email)

@@ -16,7 +16,7 @@ Meteor.startup(() => {
     <Router history={browserHistory}>
       <Route path="/" component={Layout}>
         <IndexRoute component={Profile} />
-        <Route path="/character/:characterId" component={Character} />
+        <Route path="/characters/:characterId" component={Character} />
       </Route>
     </Router>
   ), document.getElementById('render-target'));

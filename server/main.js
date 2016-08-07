@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-import { Characters, Logs } from '../imports/api/collections.jsx';
+import { Games, Characters, Logs } from '../imports/api/collections.jsx';
 import methods from '../imports/api/methods.jsx';
 
 Meteor.methods(methods)
@@ -13,7 +13,12 @@ Logs.after.insert(function (userId, doc) {
 
 Meteor.startup(() => {
   if (!Characters.find().count()) {
+    gameId = Games.insert({
+      name: 'FFC',
+      description: `todo`
+    })
     Characters.insert({
+      gameId,
       name: 'willow',
       stats: [
         {name: "Strength", value: -2},
