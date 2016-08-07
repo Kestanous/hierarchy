@@ -48,14 +48,14 @@ export default class Items extends Component {
 			    {this.getItems().map((stat, i) => {
 						return (
 			      	<div key={i}>
-                <TextField hintText="0" value={stat.name} style={{width: '75%'}}
+                <TextField value={stat.name} style={{width: '75%'}}
                   floatingLabelText="Name" floatingLabelFixed={true}
                   onChange={(event) => {
                     let toEdit = this.state.toEdit
                     toEdit[i].name = event.target.value
                     this.setState({toEdit})
                   }}/>
-                <TextField hintText="0" value={stat.value} style={{width: '25%'}}
+                <TextField value={stat.value} style={{width: '25%'}}
                   floatingLabelText="Amount" floatingLabelFixed={true}
                   onChange={(event) => {
                     let toEdit = this.state.toEdit
