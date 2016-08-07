@@ -63,6 +63,7 @@ body {
   overflow: scroll;
   display: flex;
   flex-direction: column-reverse;
+  background-color: #F5F5F5;
 }
 
 .chatText {

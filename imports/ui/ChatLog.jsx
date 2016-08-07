@@ -28,8 +28,8 @@ class ChatLog extends Component {
 
 	render() {
     return(
-			<Paper style={{top: this.state.offset + 'px'}} className='log-container' zDepth={1}>
-        <div className='log'>
+			<div style={{top: this.state.offset + 'px'}} className='log-container'>
+        <div className='log' >
           {this.props.logs.map((log, i) => {
             return (
               <Paper key={i} className="chatText" zDepth={2}>
@@ -38,7 +38,7 @@ class ChatLog extends Component {
             )
           })}
         </div>
-  		</Paper>
+  		</div>
 
     )
   }
