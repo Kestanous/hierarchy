@@ -65,6 +65,14 @@ body {
   flex-direction: column-reverse;
 }
 
+.chatText {
+  min-height: 40px;
+  margin: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .noselect {
   -webkit-touch-callout: none; /* iOS Safari */
   -webkit-user-select: none;   /* Chrome/Safari/Opera */

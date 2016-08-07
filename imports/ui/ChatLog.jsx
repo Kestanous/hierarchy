@@ -31,7 +31,11 @@ class ChatLog extends Component {
 			<Paper style={{top: this.state.offset + 'px'}} className='log-container' zDepth={1}>
         <div className='log'>
           {this.props.logs.map((log, i) => {
-            return <div key={i}>{log.text}</div>
+            return (
+              <Paper key={i} className="chatText" zDepth={2}>
+                  {log.text}
+              </Paper>
+            )
           })}
         </div>
   		</Paper>
