@@ -4,6 +4,7 @@ import { createContainer } from 'meteor/react-meteor-data';
 import Divider from 'material-ui/Divider';
 import Paper from 'material-ui/Paper';
 
+import { Logs } from '../api/collections.jsx';
 
 class ChatLog extends Component {
   constructor(props) {
@@ -29,7 +30,9 @@ class ChatLog extends Component {
     return(
 			<Paper style={{top: this.state.offset + 'px'}} className='log-container' zDepth={1}>
         <div className='log'>
-          hi
+          {this.props.logs.map((log, i) => {
+            return <div key={i}>{log.text}</div>
+          })}
         </div>
   		</Paper>
 
@@ -39,5 +42,7 @@ class ChatLog extends Component {
 
 //meteorize the class
 export default createContainer(() => {
-  return {};
+  return {
+    logs: Logs.find({}, {sort: {createdAt: -1}}).fetch()
+  };
 }, ChatLog);

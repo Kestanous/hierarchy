@@ -30,7 +30,8 @@ export default class CharacterBio extends Component {
 	}
 
 	getSubtitle() {
-		return "??"
+    if (this.state.edit) return ""
+    return '??'
 	}
 
 	getBioEdit() {

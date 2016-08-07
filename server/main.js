@@ -1,5 +1,13 @@
 import { Meteor } from 'meteor/meteor';
-import { Characters } from '../imports/api/collections.jsx';
+import { Characters, Logs } from '../imports/api/collections.jsx';
+
+
+Logs.after.insert(function (userId, doc) {
+  let cursor = Logs.find({}, {skip: 100, sort: {createdAt: -1}, fields: {_id: 1}, disableOplog: true})
+  cursor.forEach((l) => {
+    Logs.remove(l)
+  })
+});
 
 Meteor.startup(() => {
   if (!Characters.find().count()) {

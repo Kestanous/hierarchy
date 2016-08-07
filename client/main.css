@@ -5,15 +5,16 @@ body {
 }
 
 .container {
-	display: flex;
-	flex-direction: row;
-	margin-top: 5px;
-  margin-bottom: 100px;
 }
 
 .character {
-	width: 75vw;
-	padding: 0 10px;
+	width: 73vw;
+  position: absolute;
+  top: 73px;
+  bottom: 0px;
+  left:1vw;
+  overflow: scroll;
+  padding-bottom: 100px;
 }
 
 .bio {
@@ -48,10 +49,6 @@ body {
 
 }
 
-.chatLog {
-	width: 25vw;
-}
-
 .chatLog .log-container {
 	position: fixed;
   bottom: 1vh;
@@ -66,4 +63,14 @@ body {
   overflow: scroll;
   display: flex;
   flex-direction: column-reverse;
+}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none;   /* Chrome/Safari/Opera */
+  -khtml-user-select: none;    /* Konqueror */
+  -moz-user-select: none;      /* Firefox */
+  -ms-user-select: none;       /* Internet Explorer/Edge */
+  user-select: none;           /* Non-prefixed version, currently
+                                  not supported by any browser */
 }

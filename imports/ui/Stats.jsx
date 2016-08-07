@@ -68,7 +68,7 @@ export default class Stats extends Component {
 	    );
 		} else {
 			return (
-				<List>
+				<List className='noselect'>
 			    <Subheader>{this.getHeader()}</Subheader>
 		    	{this.props.character.stats.map((stat, i) => {
 		    		return <ListItem key={i} primaryText={stat.name} rightIcon={this.getBadge(stat.value)} />

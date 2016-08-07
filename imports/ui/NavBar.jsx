@@ -12,7 +12,7 @@ export default class NavBar extends Component {
       width: '100%',
       textAlign: 'center',
       display: 'inline-block',
-      "background-color": 'rgb(0, 188, 212)'
+      "backgroundColor": 'rgb(0, 188, 212)'
     };
   	return (
       <Paper style={style} zDepth={1}>
