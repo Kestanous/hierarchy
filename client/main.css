@@ -62,8 +62,15 @@ body {
   width: 5em;
 }
 
-.NavBar {
+.navBar {
+  display: flex !important;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
 
+.navBar .navBarTitle {
+  flex-grow: 1;
 }
 
 .chatLog .log-container {
