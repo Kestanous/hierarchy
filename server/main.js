@@ -20,6 +20,7 @@ Meteor.startup(() => {
     Characters.insert({
       gameId,
       name: 'willow',
+      avatar: 'avatar.jpg',
       stats: [
         {name: "Strength", value: -2},
         {name: "Agility", value: -1},
