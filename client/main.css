@@ -144,7 +144,16 @@ body {
 }
 
 .user {
-  max-width: 50%;
+  width: 50%;
+}
+
+.gameCardView {
+  flex-grow: 1;
+}
+
+.gameCardCard {
+  width: 30%;
+  min-width: 200px;
 }
 
 .noselect {

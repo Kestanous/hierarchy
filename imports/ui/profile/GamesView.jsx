@@ -9,10 +9,12 @@ import {List, ListItem} from 'material-ui/List';
 class GamesView extends Component {
   render() {
     return(
-	   	<div>
+	   	<div  className="gameCardView" >
         {this.props.games.map((game) => {
-          return (<Card key={game._id}>
-            <CardHeader title={game.name} actAsExpander={true} showExpandableButton={true}/>
+          return (<Card className="gameCardCard" key={game._id}>
+            <CardMedia overlay={<CardTitle title={game.name} subtitle="DM Name" />} >
+              <img src="avatar.jpg" />
+            </CardMedia>
             <CardText expandable={true}> {game.description} </CardText>
             <CardText>
             <List>
