@@ -10,6 +10,7 @@ import TextField from 'material-ui/TextField';
 import Paper from 'material-ui/Paper';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import ContentAdd from 'material-ui/svg-icons/content/add';
 
 import SaveButton from './SaveButton';
 import { Characters } from '../api/collections.jsx';
@@ -26,9 +27,15 @@ export default class Abilities extends Component {
 	}
 
   getHeader() {
-    return(<div>
+    return(<div className='abilitiesHeader'>
       Abilities
       <SaveButton active={this.state.edit} onClick={this.onEditToggle.bind(this)} />
+      {this.state.edit ? 
+        <IconButton style={{padding: 0, width: '30px', height: '30px'}}>
+          <ContentAdd />
+        </IconButton>
+        : <div />
+      }
     </div>)
   }
 
@@ -40,14 +47,14 @@ export default class Abilities extends Component {
           {this.state.toEdit.map((ability, i) => {
             return(
               <Paper key={i} className="abilityEdit">
-                <div>
+                <div className='abilityNameRow'>
                   <TextField value={ability.name} style={{width: "75%"}} floatingLabelText="Name" floatingLabelFixed={true}
                   onChange={(event) => {
                     let toEdit = this.state.toEdit
                     toEdit[i].name = event.target.value
                     this.setState({toEdit})
                   }}/>
-                  <SelectField value={ability.stat} style={{width: "25%"}} onChange={(event, key, payload) => {
+                  <SelectField value={ability.stat} style={{width: "25%", height: '72px'}} onChange={(event, key, payload) => {
                     let toEdit = this.state.toEdit
                     toEdit[i].stat = payload
                     this.setState({toEdit})
@@ -88,6 +95,11 @@ export default class Abilities extends Component {
     }
     this.setState({edit: !this.state.edit})
   }
+
+  onAdd() {
+
+  }
+
   onLog(ability) {
     let character = this.props.character, statValue = 0, stat = this.props.character.stats.find((s) => s.name == ability.stat)
     if (stat) statValue = stat.value

@@ -12,9 +12,10 @@ import Divider from 'material-ui/Divider';
 import Subheader from 'material-ui/Subheader';
 import IconButton from 'material-ui/IconButton';
 import ActionSettings from 'material-ui/svg-icons/action/settings';
-import SaveButton from './SaveButton';
-
+import ContentAdd from 'material-ui/svg-icons/content/add';
 import TextField from 'material-ui/TextField';
+
+import SaveButton from './SaveButton';
 import { Characters } from '../api/collections.jsx';
 
 export default class Items extends Component {
@@ -34,9 +35,14 @@ export default class Items extends Component {
   }
 
   getHeader() {
-  	return(<div>
+  	return(<div className='itemHeader'>
   		Items
     	<SaveButton active={this.state.edit} onClick={this.onEditToggle.bind(this)} />
+      {this.state.edit ? 
+        <IconButton style={{padding: 0, width: '30px', height: '30px'}}>
+          <ContentAdd />
+        </IconButton>
+      : <div /> }
 		</div>)
   }
 

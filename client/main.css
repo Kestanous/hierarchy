@@ -30,8 +30,9 @@ body {
 	width: 25vw;
 }
 
-.items {
-	width: 25vw;
+.itemHeader {
+  display: flex;
+  align-items: center;
 }
 
 .abilities {
@@ -40,9 +41,25 @@ body {
 	margin-left: 50px;
 }
 
+.abilities .abilitiesHeader {
+  display: flex;
+  align-items: center;
+}
+
 .abilities .abilityEdit {
 	margin: 0 20px 0 1px;
   padding: 0 0 10px 5px;
+}
+
+.abilities .abilityNameRow {
+  display: flex;
+  align-items: center; 
+}
+
+
+.smallAdd {
+  height: 5em;
+  width: 5em;
 }
 
 .NavBar {
