@@ -18,7 +18,7 @@ import SaveButton from './SaveButton';
 import TextField from 'material-ui/TextField';
 
 import { Characters } from '../api/collections.jsx';
-
+import log, {roll} from '../api/log.jsx';
 
 export default class Stats extends Component {
 	constructor(props) {
@@ -71,7 +71,7 @@ export default class Stats extends Component {
 				<List className='noselect'>
 			    <Subheader>{this.getHeader()}</Subheader>
 		    	{this.props.character.stats.map((stat, i) => {
-		    		return <ListItem key={i} primaryText={stat.name} rightIcon={this.getBadge(stat.value)} />
+		    		return <ListItem onClick={this.onLog.bind(this, stat)} key={i} primaryText={stat.name} rightIcon={this.getBadge(stat.value)} />
 		    	})}
 		    </List>
 			)
@@ -93,4 +93,8 @@ export default class Stats extends Component {
   	this.setState({edit: !this.state.edit})
   }
 
+  onLog(stat) {
+    let character = this.props.character
+    log(`${character.name} uses ${stat.name} and rolls a ${roll(stat.value || 0)} `)
+  }
 }
