@@ -8,13 +8,13 @@ import { Characters } from '../api/collections.jsx';
 import Divider from 'material-ui/Divider';
 
 //components
-import CharacterBio from './CharacterBio';
-import Stats from './Stats';
-import Abilities from './Abilities';
 import ChatLog from './ChatLog';
-import Items from './Items';
+import CharacterBio from './character/CharacterBio';
+import Stats from './character/Stats';
+import Abilities from './character/Abilities';
+import Items from './character/Items';
 
-class App extends Component {
+class Character extends Component {
   render() {
     let character = this.props.character
     if (!character) return <div>Loading...</div>
@@ -49,4 +49,4 @@ export default createContainer(() => {
   return {
     character: Characters.findOne()
   };
-}, App);
+}, Character);

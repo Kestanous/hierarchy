@@ -17,8 +17,8 @@ import SaveButton from './SaveButton';
 
 import TextField from 'material-ui/TextField';
 
-import { Characters } from '../api/collections.jsx';
-import log, {roll} from '../api/log.jsx';
+import { Characters } from '../../api/collections.jsx';
+import log, {roll} from '../../api/log.jsx';
 
 export default class Stats extends Component {
 	constructor(props) {

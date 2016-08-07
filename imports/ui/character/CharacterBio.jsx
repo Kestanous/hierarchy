@@ -6,7 +6,7 @@ import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 
-import { Characters } from '../api/collections.jsx';
+import { Characters } from '../../api/collections.jsx';
 
 export default class CharacterBio extends Component {
 

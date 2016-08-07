@@ -16,7 +16,7 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 import TextField from 'material-ui/TextField';
 
 import SaveButton from './SaveButton';
-import { Characters } from '../api/collections.jsx';
+import { Characters } from '../../api/collections.jsx';
 
 export default class Items extends Component {
 	constructor() {
@@ -38,7 +38,7 @@ export default class Items extends Component {
   	return(<div className='itemHeader'>
   		Items
     	<SaveButton active={this.state.edit} onClick={this.onEditToggle.bind(this)} />
-      {this.state.edit ? 
+      {this.state.edit ?
         <IconButton style={{padding: 0, width: '30px', height: '30px'}}>
           <ContentAdd />
         </IconButton>

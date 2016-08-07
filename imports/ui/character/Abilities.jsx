@@ -13,8 +13,8 @@ import MenuItem from 'material-ui/MenuItem';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 
 import SaveButton from './SaveButton';
-import { Characters } from '../api/collections.jsx';
-import log, {roll} from '../api/log.jsx';
+import { Characters } from '../../api/collections.jsx';
+import log, {roll} from '../../api/log.jsx';
 
 
 export default class Abilities extends Component {
@@ -30,7 +30,7 @@ export default class Abilities extends Component {
     return(<div className='abilitiesHeader'>
       Abilities
       <SaveButton active={this.state.edit} onClick={this.onEditToggle.bind(this)} />
-      {this.state.edit ? 
+      {this.state.edit ?
         <IconButton style={{padding: 0, width: '30px', height: '30px'}}>
           <ContentAdd />
         </IconButton>
