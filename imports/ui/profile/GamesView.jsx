@@ -17,7 +17,13 @@ class GamesView extends Component {
             <CardText>
             <List>
               {this.props.characters.filter((c) => c.gameId == game._id ).map((character) => {
-                return <Link key={character._id} to={`/characters/${character._id}`}><ListItem primaryText={character.name} /></Link>
+                return (
+                <Link key={character._id} 
+                      to={`/characters/${character._id}`}>
+                  <ListItem 
+                      primaryText={character.name} />
+                </Link>
+                  )
               })}
             </List>
             </CardText>

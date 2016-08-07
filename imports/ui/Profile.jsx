@@ -4,12 +4,14 @@ import { createContainer } from 'meteor/react-meteor-data';
 import { Games, Characters } from '../api/collections.jsx';
 
 import GamesView from './profile/GamesView.jsx';
+import User from './profile/User.jsx';
 
 class Profile extends Component {
   render() {
     return(
-	   	<div className='container'>
-        <GamesView games={this.props.games} />
+	   	<div className='profile'>
+          <User />
+          <GamesView games={this.props.games} />
 	    </div>
     );
   }
