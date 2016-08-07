@@ -4,6 +4,46 @@ body {
 	margin: 0;
 }
 
+.loadingWrapper {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.accounts {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.accounts .accountsForm {
+  display: flex;
+  flex-direction: row;
+}
+.accounts .accountsStateGroup {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.accounts .accountsState {
+  margin: 10px 0;
+
+}
+
+.accounts  .accountsFields {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+}
+
 .container {
 }
 
@@ -53,7 +93,7 @@ body {
 
 .abilities .abilityNameRow {
   display: flex;
-  align-items: center; 
+  align-items: center;
 }
 
 

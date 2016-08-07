@@ -1,5 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
+import { Link } from 'react-router';
+import { Meteor } from 'meteor/meteor';
 
 import Paper from 'material-ui/Paper';
 import FlatButton from 'material-ui/FlatButton';
@@ -20,22 +22,24 @@ export default class NavBar extends Component {
   	return (
       <Paper className="navBar" style={style} zDepth={1}>
         <div>
-          <FlatButton
-            style = {
-            {height: 64} }
-            label="Back"
-            labelPosition="after"
-            primary={false}
-            icon={<HardwareKeyboardBackspace />}
-          />
+          {/character/.test(this.props.location.pathname) ?
+            <Link to={'/'}><FlatButton
+              style = {
+              {height: 64} }
+              label="Back"
+              labelPosition="after"
+              primary={false}
+              icon={<HardwareKeyboardBackspace />}
+            /></Link>
+          : '' }
         </div>
         <h2 className="navBarTitle">
           H e i r a r c h y
         </h2>
         <div>
           <FlatButton
-            style = {
-            {height: 64} }
+            onClick={() => Meteor.logout() }
+            style = { {height: 64} }
             label="Log Out"
             labelPosition="before"
             primary={false}
