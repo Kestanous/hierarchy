@@ -139,12 +139,14 @@ body {
 }
 
 .profile {
+  height: 100vh;
+  overflow: scroll;
   flex-direction: row;
   display: flex;
 }
 
 .user {
-  width: 50%;
+  width: 25vw;
 }
 
 .gameCardView {
