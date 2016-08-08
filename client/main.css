@@ -156,6 +156,7 @@ body {
 .profile .gameCardCard {
   width: 30%;
   min-width: 200px;
+  margin: 10px;
 }
 
 .profile .quickSelect {
