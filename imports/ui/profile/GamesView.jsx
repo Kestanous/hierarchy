@@ -5,31 +5,22 @@ import { Characters } from '../../api/collections.jsx';
 
 import {Card, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import {List, ListItem} from 'material-ui/List';
+import DropDownMenu from 'material-ui/DropDownMenu';
+import MenuItem from 'material-ui/MenuItem';
+import IconMenu from 'material-ui/IconMenu';
+import RaisedButton from 'material-ui/RaisedButton';
+import IconButton from 'material-ui/IconButton';
+import FileFileDownload from 'material-ui/svg-icons/file/file-download';
+import GamesCard from './GamesCard';
+
+
 
 class GamesView extends Component {
   render() {
     return(
 	   	<div  className="gameCardView" >
         {this.props.games.map((game) => {
-          return (<Card className="gameCardCard" key={game._id}>
-            <CardMedia overlay={<CardTitle title={game.name} subtitle="DM Name" />} >
-              <img src="avatar.jpg" />
-            </CardMedia>
-            <CardText expandable={true}> {game.description} </CardText>
-            <CardText>
-            <List>
-              {this.props.characters.filter((c) => c.gameId == game._id ).map((character) => {
-                return (
-                <Link key={character._id} 
-                      to={`/characters/${character._id}`}>
-                  <ListItem 
-                      primaryText={character.name} />
-                </Link>
-                  )
-              })}
-            </List>
-            </CardText>
-          </Card>)
+          return <GamesCard key={game._id} game={game} characters={this.props.characters.filter((c) => c.gameId == game._id )} />
         })}
 	    </div>
     );

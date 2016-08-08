@@ -145,17 +145,24 @@ body {
   display: flex;
 }
 
-.user {
+.profile .user  {
   width: 25vw;
 }
 
-.gameCardView {
+.profile .gameCardView {
   flex-grow: 1;
 }
 
-.gameCardCard {
+.profile .gameCardCard {
   width: 30%;
   min-width: 200px;
+}
+
+.profile .quickSelect {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
 .noselect {
