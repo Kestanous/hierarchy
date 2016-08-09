@@ -34,8 +34,15 @@ export default class CharacterBio extends Component {
     return '??'
 	}
 
+  getAvatarEdit() {
+    return <TextField value={this.state.editAvatar} floatingLabelText="Avatar URL" fullWidth={true}
+      floatingLabelFixed={true} onChange={(event) => {
+        this.setState({editAvatar: event.target.value})
+      }}/>
+  }
+
 	getBioEdit() {
-		return <TextField value={this.state.editBio} floatingLabelText="Character Bio"
+		return <TextField value={this.state.editBio} floatingLabelText="Character Bio" fullWidth={true}
       floatingLabelFixed={true} multiLine={true} onChange={(event) => {
         this.setState({editBio: event.target.value})
       }}/>
@@ -52,6 +59,7 @@ export default class CharacterBio extends Component {
 		      avatar={this.props.character.avatar}
 		    />
 		    <CardText expandable={true}>
+          {this.state.edit ? this.getAvatarEdit() : '' }
 		    	{this.state.edit ? this.getBioEdit() : this.props.character.bio || 'No Bio' }
 		    </CardText>
 		    <CardActions expandable={true}>
@@ -63,12 +71,13 @@ export default class CharacterBio extends Component {
 
 	onEditToggle() {
     if (this.state.edit) {
-      let name = this.state.editName, bio = this.state.editBio
-      Characters.update({_id: this.props.character._id}, {$set: {name, bio}})
+      let name = this.state.editName, bio = this.state.editBio, avatar = this.state.editAvatar
+      Characters.update({_id: this.props.character._id}, {$set: {name, bio, avatar}})
     } else {
       this.setState({
         editName: this.props.character.name,
-        editBio: this.props.character.bio
+        editBio: this.props.character.bio,
+        editAvatar: this.props.character.avatar
       })
     }
 		this.setState({edit: !this.state.edit})
