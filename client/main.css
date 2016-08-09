@@ -89,6 +89,12 @@ body {
   align-items: center;
 }
 
+.itemEdit {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
 .abilities {
 	flex-grow: 1;
 	overflow-y: auto;
@@ -99,9 +105,19 @@ body {
   display: flex;
   align-items: center;
 }
-
 .abilities .abilityEdit {
-	margin: 0 20px 0 1px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.abilities .abilityEditButton {
+  height: 40px;
+}
+
+.abilities .abilityEditCard {
+  flex-grow: 1;
+	margin: 0 20px 10px 1px;
   padding: 0 0 10px 5px;
 }
 

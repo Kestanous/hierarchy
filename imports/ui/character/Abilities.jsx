@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
+import { Random } from 'meteor/random'
 
 import {List, ListItem} from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
@@ -13,6 +14,9 @@ import MenuItem from 'material-ui/MenuItem';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentRemove from 'material-ui/svg-icons/content/remove';
+
 
 import SaveButton from './SaveButton';
 import AddModal from '../AddModal';
@@ -64,13 +68,17 @@ export default class Abilities extends Component {
       return(
         <div>
           <h2>{this.getHeader()}</h2>
-          {this.props.character.abilities.map((ability, i) => {
-            return(
-              <Paper key={i} className="abilityEdit">
-                <Form values={ability} index={i} update={this.onEditUpdate.bind(this)}>
+          {this.state.toSave.map((ability) => {
+            return(<div key={ability._id}  className="abilityEdit">
+              <FloatingActionButton onTouchTap={this.onRemoveAbility.bind(this, ability._id)} zDepth={0} className="abilityEditButton" mini={true} secondary={true}>
+                <ContentRemove />
+              </FloatingActionButton>
+              <Paper className="abilityEditCard">
+                <Form values={ability} index={ability._id} update={this.onEditUpdate.bind(this)}>
                   {this.getEditForm(ability)}
                 </Form>
-              </Paper> )
+              </Paper>
+            </div>)
           })}
           <AddModal defaults={{stat: this.props.character.stats[0].name}} ref="addModal" title="Add Ability"
           validate={this.validate} save={this.onSaveAdd.bind(this)}> {this.getEditForm()} </AddModal>
@@ -79,8 +87,8 @@ export default class Abilities extends Component {
       return(
   			<List className="scroll-view noselect">
           <Subheader>{this.getHeader()}</Subheader>
-          {this.props.character.abilities.map((ability, i) => {
-            return( <ListItem key={i} primaryText={`${ability.name} (${ability.stat})`} secondaryText={ability.text} onClick={this.onLog.bind(this, ability)} /> )
+          {this.props.character.abilities.map((ability) => {
+            return( <ListItem key={ability._id} primaryText={`${ability.name} (${ability.stat})`} secondaryText={ability.text} onClick={this.onLog.bind(this, ability)} /> )
           })}
        	</List>
       )
@@ -91,14 +99,19 @@ export default class Abilities extends Component {
     return ability.name && ability.stat
   }
 
-  onSaveAdd(ability) {
+  onSaveAdd(data) {
+    data._id = Random.id()
     let toSave = this.state.toSave
-    toSave.push(ability)
+    toSave.push(data)
     this.setState({toSave})
   }
-
-  onEditUpdate(data, index) {
-    let toSave = this.state.toSave
+  onRemoveAbility(id) {
+    let toSave = this.state.toSave, index = toSave.findIndex((a) => a._id == id)
+    toSave.splice(index, 1);
+    this.setState({toSave})
+  }
+  onEditUpdate(data, id) {
+    let toSave = this.state.toSave, index = toSave.findIndex((a) => a._id == id)
     toSave[index] = data
     this.setState({toSave})
   }

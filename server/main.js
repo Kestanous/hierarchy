@@ -1,4 +1,5 @@
 import { Meteor } from 'meteor/meteor';
+import { Random } from 'meteor/random'
 import { Games, Characters, Logs } from '../imports/api/collections.jsx';
 import methods from '../imports/api/methods.jsx';
 
@@ -31,12 +32,12 @@ Meteor.startup(() => {
         {name: "Perception", value: 0}
       ],
       items: [
-        {name: "Gold", value: 50},
-        {name: "Scrolls", value: 1},
-        {name: "Fans", value: 40},
+        {name: "Gold", value: 50, _id: Random.id()},
+        {name: "Scrolls", value: 1, _id: Random.id()},
+        {name: "Fans", value: 40, _id: Random.id()},
       ],
       abilities: [
-        {name: "Mind Crush", text: "I kinda forgot what you put here :P"},
+        {name: "Mind Crush", text: "I kinda forgot what you put here :P", _id: Random.id(), stat: 'Strength'},
       ]
     })
   }
