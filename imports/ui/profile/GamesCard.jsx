@@ -16,35 +16,43 @@ import HardwareKeyboardArrowDown from 'material-ui/svg-icons/hardware/keyboard-a
 export default class GamesCard extends Component {
 
   constructor() {
-    super() 
+    super()
     this.state = {}
   }
 
   render() {
 
-    let {game,characters} = this.props
+    let {game, characters} = this.props;
 
-    return (<Card className="gameCardCard">
-            <CardMedia overlay={<CardTitle title={game.name} subtitle="DM Name" />} >
+    return (<Card expanded={this.state.expanded} className="gameCardCard" zDepth={this.state.hovered ? 5 : 1}
+              onMouseOver={() => { this.setState({ hovered:true }) } }
+              onMouseOut={() => { this.setState({ hovered:false }) } } >
+            <CardMedia onClick={this.toggleExpand.bind(this)} overlay={<CardTitle title={game.name} subtitle="DM Name" />} >
               <img src="avatar.jpg" />
             </CardMedia>
-            <CardText expandable={true}> {game.description} </CardText>
-            <CardText className="quickSelect">
+            <CardText expandable={true} className="quickSelect">
               <FlatButton onTouchTap={this.handleOpenMenu.bind(this)} label="characters" />
               <IconMenu iconButtonElement={<IconButton onTouchTap={this.handleOpenMenu.bind(this)}><HardwareKeyboardArrowDown /></IconButton>}
                 open={this.state.openMenu}
                 onRequestChange={this.handleOnRequestChange.bind(this)}>
-              
+
                 {characters.map((character) => {
                 return (
                   <MenuItem key={character._id} value={character._id} primaryText={character.name} onTouchTap={this.linkTo.bind(this,character._id)}/>
                   )
               })}
               </IconMenu>
-              
+
             </CardText>
           </Card>)
-    
+
+  }
+  toggleExpand() {
+    if (this.props.characters.length == 1) {
+      this.linkTo(this.props.characters[0]._id)
+    } else {
+      this.setState({expanded: !this.state.expanded})
+    }
   }
   handleOpenMenu() {
     this.setState({openMenu:true})
@@ -58,5 +66,3 @@ export default class GamesCard extends Component {
     browserHistory.push(`/characters/${value}`)
   }
 }
-
-

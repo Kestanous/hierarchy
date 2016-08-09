@@ -11,8 +11,14 @@ import Paper from 'material-ui/Paper';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import ContentAdd from 'material-ui/svg-icons/content/add';
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
 
 import SaveButton from './SaveButton';
+import AddModal from '../AddModal';
+import Form from '../Form';
+
+
 import { Characters } from '../../api/collections.jsx';
 import log, {roll} from '../../api/log.jsx';
 
@@ -22,7 +28,7 @@ export default class Abilities extends Component {
 		super(props)
 		this.state = {
       edit: false,
-      toEdit: props.character.abilities
+      toSave: props.character.abilities
     }
 	}
 
@@ -31,11 +37,25 @@ export default class Abilities extends Component {
       Abilities
       <SaveButton active={this.state.edit} onClick={this.onEditToggle.bind(this)} />
       {this.state.edit ?
-        <IconButton style={{padding: 0, width: '30px', height: '30px'}}>
+        <IconButton onClick={() => {this.refs['addModal'].onOpen()}} style={{padding: 0, width: '30px', height: '30px'}}>
           <ContentAdd />
         </IconButton>
         : <div />
       }
+    </div>)
+  }
+
+  getEditForm(ability) {
+    return (<div>
+      <div className='abilityNameRow'>
+        <TextField ref='name' style={{width: "75%"}} floatingLabelText="Name" floatingLabelFixed={true}/>
+        <SelectField ref='stat' style={{width: "25%", height: '72px'}}>
+          {this.props.character.stats.map((stat, i) => {
+            return <MenuItem key={i} value={stat.name} primaryText={stat.name} />
+          })}
+        </SelectField>
+      </div>
+      <TextField ref='text' floatingLabelText="Description" floatingLabelFixed={true} multiLine={true} fullWidth={true}/>
     </div>)
   }
 
@@ -44,37 +64,16 @@ export default class Abilities extends Component {
       return(
         <div>
           <h2>{this.getHeader()}</h2>
-          {this.state.toEdit.map((ability, i) => {
+          {this.props.character.abilities.map((ability, i) => {
             return(
               <Paper key={i} className="abilityEdit">
-                <div className='abilityNameRow'>
-                  <TextField value={ability.name} style={{width: "75%"}} floatingLabelText="Name" floatingLabelFixed={true}
-                  onChange={(event) => {
-                    let toEdit = this.state.toEdit
-                    toEdit[i].name = event.target.value
-                    this.setState({toEdit})
-                  }}/>
-                  <SelectField value={ability.stat} style={{width: "25%", height: '72px'}} onChange={(event, key, payload) => {
-                    let toEdit = this.state.toEdit
-                    toEdit[i].stat = payload
-                    this.setState({toEdit})
-                  }}>
-                    {this.props.character.stats.map((stat, ii) => {
-                      return <MenuItem key={ii} value={stat.name} primaryText={stat.name} />
-                    })}
-                  </SelectField>
-                </div>
-                <div>
-                  <TextField value={ability.text} floatingLabelText="Description"
-                    floatingLabelFixed={true} multiLine={true} fullWidth={true}
-                    onChange={(event) => {
-                      let toEdit = this.state.toEdit
-                      toEdit[i].text = event.target.value
-                      this.setState({toEdit})
-                    }}/>
-                </div>
+                <Form values={ability} index={i} update={this.onEditUpdate.bind(this)}>
+                  {this.getEditForm(ability)}
+                </Form>
               </Paper> )
           })}
+          <AddModal defaults={{stat: this.props.character.stats[0].name}} ref="addModal" title="Add Ability"
+          validate={this.validate} save={this.onSaveAdd.bind(this)}> {this.getEditForm()} </AddModal>
         </div>)
     } else {
       return(
@@ -87,17 +86,29 @@ export default class Abilities extends Component {
       )
     }
   }
+
+  validate(ability) {
+    return ability.name && ability.stat
+  }
+
+  onSaveAdd(ability) {
+    let toSave = this.state.toSave
+    toSave.push(ability)
+    this.setState({toSave})
+  }
+
+  onEditUpdate(data, index) {
+    let toSave = this.state.toSave
+    toSave[index] = data
+    this.setState({toSave})
+  }
   onEditToggle() {
     if (this.state.edit) {
-      Characters.update({_id: this.props.character._id}, {$set: {abilities: this.state.toEdit}})
+      Characters.update({_id: this.props.character._id}, {$set: {abilities: this.state.toSave}})
     } else {
       this.setState({toEdit: this.props.character.abilities})
     }
     this.setState({edit: !this.state.edit})
-  }
-
-  onAdd() {
-
   }
 
   onLog(ability) {
