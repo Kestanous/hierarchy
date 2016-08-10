@@ -179,17 +179,28 @@ body {
 }
 
 .profile .user  {
-  width: 25vw;
+  /*width: 30vw;*/
+}
+
+.profile .userSubmit {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.profile .userSubmitMessage {
+  color: rgb(0, 188, 212);
 }
 
 .profile .gameCardView {
-  flex-grow: 1;
+  overflow-y: auto;
 }
 
 .profile .gameCardCard {
   width: 30%;
   min-width: 200px;
   margin: 10px;
+  float: left;
 }
 
 .profile .quickSelect {

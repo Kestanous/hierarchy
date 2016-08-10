@@ -19,6 +19,26 @@ export default methods = {
       `
     });
     return 'Email Sent'
+  },
+  updateUser(options) {
+    let user = Meteor.users.findOne(this.userId),
+      password = {digest: options.digest, algorithm: 'sha-256'},
+      result = Accounts._checkPassword(user, password);
+    if (result.error) throw new Meteor.Error('BadPass', "Your password was incorrect")
+
+
+    let {email, username} = options, set = {}
+    if (email) {
+      user = Accounts.findUserByEmail(email)
+      if (user && user._id != this.userId) {
+        throw new Meteor.Error('UserExists', "This email is already in use.")
+      } else if (!user) {
+        set['emails.0.address'] = email
+      }
+    }
+
+    if (username) set['profile.username'] = username
+    return Meteor.users.update(this.userId, {$set: set})
   }
 }
 

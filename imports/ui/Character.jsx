@@ -45,8 +45,8 @@ class Character extends Component {
 }
 
 //meteorize the class
-export default createContainer(() => {
+export default createContainer((route) => {
   return {
-    character: Characters.findOne()
+    character: Characters.findOne({_id: route.params.characterId})
   };
 }, Character);

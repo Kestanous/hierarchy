@@ -27,8 +27,8 @@ export default class GamesCard extends Component {
     return (<Card expanded={this.state.expanded} className="gameCardCard" zDepth={this.state.hovered ? 5 : 1}
               onMouseOver={() => { this.setState({ hovered:true }) } }
               onMouseOut={() => { this.setState({ hovered:false }) } } >
-            <CardMedia onClick={this.toggleExpand.bind(this)} overlay={<CardTitle title={game.name} subtitle="DM Name" />} >
-              <img src="avatar.jpg" />
+            <CardMedia onClick={this.toggleExpand.bind(this)} overlay={<CardTitle title={game.name} subtitle={game.gmName} />} >
+              <img src={game.cover || "avatar.jpg"} />
             </CardMedia>
             <CardText expandable={true} className="quickSelect">
               <FlatButton onTouchTap={this.handleOpenMenu.bind(this)} label="characters" />
