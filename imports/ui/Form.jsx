@@ -4,10 +4,23 @@ import React, { Component } from 'react';
 export default class Form extends Component {
   constructor(props) {
 		super(props)
+    let validations = {}, isInvalid = false
+    if (props.validators) {
+      this.getChildrenRefs(this.props.children).forEach((key) => {
+        if (props.validators[key]) {
+          validations[key] = props.validators[key](Objectifier.get(key, false, this.props.values || {}), this.props.values)
+          if (validations[key]) isInvalid = true
+        }
+      })
+    }
+
 		this.state = {
-      values: props.values || {}
+      values: JSON.parse(JSON.stringify(props.values || {})),
+      validations,
+      isInvalid
     }
 	}
+
 	render() {
     return (
       <div className='Form' style={this.props.styles}>
@@ -16,30 +29,63 @@ export default class Form extends Component {
     )
   }
   setChildrenProps(child) {
-    let value = Objectifier.get(child.ref, false, this.state.values)
+    if (child.ref == 'submit') {
+      return React.cloneElement(child, {
+        onClick: this.onSave.bind(this),
+        disabled: this.state.isInvalid
+      })
+    }
+
+
+    let value = Objectifier.get(child.ref, false, this.state.values),
+    defaultValue = Objectifier.get(child.ref, false, this.props.values || {}),
+    errorText
+
+    if (value != defaultValue) {
+      errorText = this.state.validations[child.ref]
+    }
+
     if (value == null || value == undefined) value = '' //forces it to be a controled input
 
     return React.cloneElement(child, {
       onChange: (event, key, payload) => {
         this.onChange(child.ref, event, key, payload)
       },
-      value: value
+      value,
+      errorText
     })
   }
+
   setSubChildrenProps(child) {
     if (!child) return child
     if (child.ref) return this.setChildrenProps(child)
     if (!child.props || !child.props.children) return child
     return React.cloneElement(child, {
-      children: child.props.children.map((subChild) => {
+      children: React.Children.map(child.props.children, (subChild) => {
         if (!subChild.ref) return this.setSubChildrenProps(subChild)
         else return this.setChildrenProps(subChild)
       })
     })
   }
 
+  getChildrenRefs(children, out = []) {
+    React.Children.map(children, (child) => this.getChildRefs(child, out) )
+    return out
+  }
+
+  getChildRefs(child, out = []) {
+    if (!child) return
+    if (child.ref && child.ref != 'submit') {
+      out.push(child.ref)
+      return
+    }
+    if (!child.props || !child.props.children) return
+    this.getChildrenRefs(child.props.children, out)
+  }
+
   onChange(name, event, value, payload) {
-    let out, values = this.state.values;
+    let out, isInvalid, {values, validations} = this.state,
+    {validators, update} = this.props
 
     if (payload) out = payload
     else if (value) out = value
@@ -47,8 +93,18 @@ export default class Form extends Component {
 
     Objectifier.set(name, out, values)
 
-    this.setState({values})
-    this.props.update(values, this.props.index)
+    if (validators && validators[name]) {
+      validations[name] = validators[name](out, values)
+      isInvalid = Object.values(validations).filter((value) => value).length > 0
+    }
+
+    this.setState({values, validations, isInvalid})
+    if (update) update(values, this.props.index)
+  }
+
+  onSave() {
+    let {isInvalid, values} = this.state, {save} = this.props
+    if (!isInvalid && save) save(values)
   }
 }
 

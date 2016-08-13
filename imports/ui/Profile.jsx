@@ -12,8 +12,8 @@ class Profile extends Component {
   render() {
     return(
 	   	<div className='profile'>
-        <User games={this.props.games} createGame={this.createGame.bind(this)} createCharacter={this.createCharacter.bind(this)}/>
-        <GamesView games={this.props.games} />
+        <User games={this.props.games} invitedGames={this.props.invitedGames} createGame={this.createGame.bind(this)} createCharacter={this.createCharacter.bind(this)}/>
+        <GamesView games={this.props.games} user={this.props.user} />
         <CreateGame ref='game' />
         {this.props.games.length ? <CreateCharacter ref='character' games={this.props.games} /> : null}
 
@@ -33,10 +33,16 @@ class Profile extends Component {
 //meteorize the class
 export default createContainer(() => {
   return {
-    games: Games.find().map((game) => {
+    games: Games.find({$or: [{players: Meteor.userId()}, {gm: Meteor.userId()}] }).map((game) => {
       let gm = Meteor.users.findOne(game.gm)
       game.gmName = (gm && gm.profile && gm.profile.username)
       return game
-    })
+    }),
+    invitedGames: Games.find({invited: Meteor.userId()}).map((game) => {
+      let gm = Meteor.users.findOne(game.gm)
+      game.gmName = (gm && gm.profile && gm.profile.username)
+      return game
+    }),
+    user: Meteor.user()
   };
 }, Profile);

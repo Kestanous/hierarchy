@@ -20,7 +20,7 @@ class GamesView extends Component {
     return(
 	   	<div  className="gameCardView" >
         {this.props.games.map((game) => {
-          return <GamesCard key={game._id} game={game} characters={this.props.characters.filter((c) => c.gameId == game._id )} />
+          return <GamesCard key={game._id} user={this.props.user} game={game} characters={this.props.characters.filter((c) => c.gameId == game._id )} />
         })}
 	    </div>
     );

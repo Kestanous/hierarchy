@@ -17,12 +17,15 @@ export default class NavBar extends Component {
       width: '100%',
       textAlign: 'center',
       display: 'inline-block',
-      "backgroundColor": 'rgb(0, 188, 212)'
+      backgroundColor: 'rgb(0, 188, 212)',
+      borderRadius: 0
     };
+    let shouldBack = true
+    if (this.props.location.pathname == '/') shouldBack = false
   	return (
       <Paper className="navBar" style={style} zDepth={1}>
         <div>
-          {/character/.test(this.props.location.pathname) ?
+          {shouldBack ?
             <Link to={'/'}><FlatButton
               style = {
               {height: 64} }
@@ -31,7 +34,7 @@ export default class NavBar extends Component {
               primary={false}
               icon={<HardwareKeyboardBackspace />}
             /></Link>
-          : '' }
+            : '' }
         </div>
         <h2 className="navBarTitle">
           H e i r a r c h y

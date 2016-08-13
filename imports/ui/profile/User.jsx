@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 
+import { Games } from '../../api/collections.jsx';
+
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -27,13 +29,6 @@ class PlayerInfo extends Component {
   render() {
 	   return(
 			<Card className="user">
-		    <CardActions>
-		      <RaisedButton fullWidth={true} onClick={this.props.createGame} label="Create Game" />
-          {this.props.games.length ?
-            <RaisedButton fullWidth={true} onClick={this.props.createCharacter} label="Create Character" />
-          : null}
-
-		    </CardActions>
         <CardText>
             <TextField onChange={this.changePlayerName.bind(this)} value={this.state.username} floatingLabelText="Name" floatingLabelFixed={true} fullWidth={true}/>
             <TextField onChange={this.changeEmail.bind(this)} value={this.state.email} floatingLabelText="Email" floatingLabelFixed={true} fullWidth={true}/>
@@ -49,6 +44,24 @@ class PlayerInfo extends Component {
             <span className='userSubmitMessage'>{this.state.message}</span>
           </div>
         </CardText>
+        <CardActions>
+          <RaisedButton fullWidth={true} onClick={this.props.createGame} label="Create Game" />
+          {this.props.games.length ?
+            <RaisedButton fullWidth={true} onClick={this.props.createCharacter} label="Create Character" />
+          : null}
+        </CardActions>
+        {this.props.invitedGames.length ?
+          <CardText>
+            <Card>
+              <CardHeader title="Your Game Invites" subtitle='Click to accept or decline' />
+              <CardActions>
+                {this.props.invitedGames.map((game) => {
+                  return <RaisedButton key={game._id} fullWidth={true} onClick={this.joinGame.bind(this, game)} label={`${game.name}`} />
+                })}
+              </CardActions>
+            </Card>
+          </CardText>
+        : '' }
 		  </Card>
   	)
   }
@@ -94,6 +107,19 @@ class PlayerInfo extends Component {
       if (newPassword && newPassword.length < 8) {
         this.setState({message: 'New Password too short'})
       }
+    }
+  }
+  joinGame(game) {
+    let join = confirm(`Join ${game.name}?`)
+    if (join) {
+      Games.update(game._id, {
+        $pull: {invited: Meteor.userId()},
+        $addToSet: {players: Meteor.userId()}
+      })
+    } else {
+      Games.update(game._id, {
+        $pull: {invited: Meteor.userId()}
+      })
     }
   }
 }

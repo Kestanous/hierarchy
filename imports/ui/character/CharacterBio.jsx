@@ -51,7 +51,7 @@ export default class CharacterBio extends Component {
 
   render() {
   	 return(
-    	<Card>
+    	<Card style={{backgroundColor: 'rgb(0, 188, 212)'}}>
 		    <CardHeader
 		      title={this.getTitle()}
 		      subtitle={this.getSubtitle()}

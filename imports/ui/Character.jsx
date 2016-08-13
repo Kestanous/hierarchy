@@ -37,7 +37,7 @@ class Character extends Component {
 		      </div>
 		    </div>
 		    <div className='chatLog'>
-	      	<ChatLog  />
+	      	<ChatLog gameId={character.gameId} />
 	      </div>
 	    </div>
     );
