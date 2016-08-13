@@ -10,17 +10,20 @@ export default class Form extends Component {
 	}
 	render() {
     return (
-      <div>
+      <div className='Form' style={this.props.styles}>
         {React.Children.map(this.props.children, (child) => this.setSubChildrenProps(child))}
       </div>
     )
   }
   setChildrenProps(child) {
+    let value = Objectifier.get(child.ref, false, this.state.values)
+    if (value == null || value == undefined) value = '' //forces it to be a controled input
+
     return React.cloneElement(child, {
       onChange: (event, key, payload) => {
         this.onChange(child.ref, event, key, payload)
       },
-      value: this.state.values[child.ref] || '' //forces it to be a controled input
+      value: value
     })
   }
   setSubChildrenProps(child) {
@@ -36,14 +39,40 @@ export default class Form extends Component {
   }
 
   onChange(name, event, value, payload) {
-    let out;
+    let out, values = this.state.values;
+
     if (payload) out = payload
     else if (value) out = value
     else out = event.target.value
 
-    let values = this.state.values
-    values[name] = out
+    Objectifier.set(name, out, values)
+
     this.setState({values})
     this.props.update(values, this.props.index)
   }
 }
+
+
+
+// Utility method to get and set objects that may or may not exist
+var objectifier = function(splits, create, context) {
+	var result = context || window;
+	for(var i = 0, s; result && (s = splits[i]); i++) {
+		result = (s in result ? result[s] : (create ? result[s] = {} : undefined));
+	}
+	return result;
+};
+
+let Objectifier = {
+	// Creates an object if it doesn't already exist
+	set: function(name, value, context) {
+		var splits = name.split('.'), s = splits.pop(), result = objectifier(splits, true, context);
+		return result && s ? (result[s] = value) : undefined;
+	},
+	get: function(name, create, context) {
+		return objectifier(name.split('.'), create, context);
+	},
+	exists: function(name, context) {
+		return this.get(name, false, context) !== undefined;
+	}
+};

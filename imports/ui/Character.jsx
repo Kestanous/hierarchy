@@ -16,14 +16,14 @@ import Items from './character/Items';
 
 class Character extends Component {
   render() {
-    let character = this.props.character
+    let {character, user} = this.props
     if (!character) return <div>Loading...</div>
 
     return(
 	   	<div className='container'>
 	   		<div className='character'>
 	        <div className='bio'>
-	        	<CharacterBio character={character} />
+	        	<CharacterBio character={character} user={user} />
 	        </div>
 	        <div className='stuff'>
 		        <div className='stats'>
@@ -47,6 +47,7 @@ class Character extends Component {
 //meteorize the class
 export default createContainer((route) => {
   return {
-    character: Characters.findOne({_id: route.params.characterId})
+    character: Characters.findOne({_id: route.params.characterId}),
+    user: Meteor.user()
   };
 }, Character);

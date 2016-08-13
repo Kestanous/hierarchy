@@ -12,10 +12,11 @@ class Profile extends Component {
   render() {
     return(
 	   	<div className='profile'>
-        <User createGame={this.createGame.bind(this)} createCharacter={this.createCharacter.bind(this)}/>
+        <User games={this.props.games} createGame={this.createGame.bind(this)} createCharacter={this.createCharacter.bind(this)}/>
         <GamesView games={this.props.games} />
         <CreateGame ref='game' />
-        <CreateCharacter ref='character' />
+        {this.props.games.length ? <CreateCharacter ref='character' games={this.props.games} /> : null}
+
 	    </div>
     )
   }

@@ -31,7 +31,8 @@ export default class CharacterBio extends Component {
 
 	getSubtitle() {
     if (this.state.edit) return ""
-    return '??'
+    if (this.props.user && this.props.user.profile) return this.props.user.profile.username
+    else return 'Player'
 	}
 
   getAvatarEdit() {

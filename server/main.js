@@ -12,33 +12,33 @@ Logs.after.insert(function (userId, doc) {
   })
 });
 
-Meteor.startup(() => {
-  if (!Characters.find().count()) {
-    gameId = Games.insert({
-      name: 'FFC',
-      description: `todo`
-    })
-    Characters.insert({
-      gameId,
-      name: 'willow',
-      avatar: '/avatar.jpg',
-      stats: [
-        {name: "Strength", value: -2},
-        {name: "Agility", value: -1},
-        {name: "Vigor", value: 0},
-        {name: "Spirit", value: 1},
-        {name: "Logic", value: 2},
-        {name: "Charisma", value: 0},
-        {name: "Perception", value: 0}
-      ],
-      items: [
-        {name: "Gold", value: 50, _id: Random.id()},
-        {name: "Scrolls", value: 1, _id: Random.id()},
-        {name: "Fans", value: 40, _id: Random.id()},
-      ],
-      abilities: [
-        {name: "Mind Crush", text: "I kinda forgot what you put here :P", _id: Random.id(), stat: 'Strength'},
-      ]
-    })
-  }
-});
+// Meteor.startup(() => {
+//   if (!Characters.find().count()) {
+//     gameId = Games.insert({
+//       name: 'FFC',
+//       description: `todo`
+//     })
+//     Characters.insert({
+//       gameId,
+//       name: 'willow',
+//       avatar: '/avatar.jpg',
+//       stats: [
+//         {name: "Strength", value: -2},
+//         {name: "Agility", value: -1},
+//         {name: "Vigor", value: 0},
+//         {name: "Spirit", value: 1},
+//         {name: "Logic", value: 2},
+//         {name: "Charisma", value: 0},
+//         {name: "Perception", value: 0}
+//       ],
+//       items: [
+//         {name: "Gold", value: 50, _id: Random.id()},
+//         {name: "Scrolls", value: 1, _id: Random.id()},
+//         {name: "Fans", value: 40, _id: Random.id()},
+//       ],
+//       abilities: [
+//         {name: "Mind Crush", text: "I kinda forgot what you put here :P", _id: Random.id(), stat: 'Strength'},
+//       ]
+//     })
+//   }
+// });

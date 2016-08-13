@@ -179,7 +179,8 @@ body {
 }
 
 .profile .user  {
-  /*width: 30vw;*/
+  position: relative;
+  max-width: 30vw;
 }
 
 .profile .userSubmit {
@@ -208,6 +209,10 @@ body {
   flex-direction: row;
   justify-content: center;
   align-items: center;
+}
+
+.Form {
+  overflow-y: auto;
 }
 
 .noselect {

@@ -3,6 +3,7 @@ import { createContainer } from 'meteor/react-meteor-data';
 
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 
 
@@ -27,14 +28,17 @@ class PlayerInfo extends Component {
 	   return(
 			<Card className="user">
 		    <CardActions>
-		      <FlatButton onClick={this.props.createGame} label="Create Game" />
-		      <FlatButton onClick={this.props.createCharacter} label="Create Character" />
+		      <RaisedButton fullWidth={true} onClick={this.props.createGame} label="Create Game" />
+          {this.props.games.length ?
+            <RaisedButton fullWidth={true} onClick={this.props.createCharacter} label="Create Character" />
+          : null}
+
 		    </CardActions>
         <CardText>
-          <TextField onChange={this.changePlayerName.bind(this)} value={this.state.username} floatingLabelText="Name" floatingLabelFixed={true}/>
-          <TextField onChange={this.changeEmail.bind(this)} value={this.state.email} floatingLabelText="Email" floatingLabelFixed={true}/>
-          <TextField type='password' onChange={this.changeOldPassword.bind(this)} value={this.state.oldPassword} floatingLabelText="Current Password" floatingLabelFixed={true}/>
-          <TextField type='password' onChange={this.changeNewPassword.bind(this)} value={this.state.newPassword} floatingLabelText="Change Password" floatingLabelFixed={true}/>
+            <TextField onChange={this.changePlayerName.bind(this)} value={this.state.username} floatingLabelText="Name" floatingLabelFixed={true} fullWidth={true}/>
+            <TextField onChange={this.changeEmail.bind(this)} value={this.state.email} floatingLabelText="Email" floatingLabelFixed={true} fullWidth={true}/>
+            <TextField type='password' onChange={this.changeOldPassword.bind(this)} value={this.state.oldPassword} floatingLabelText="Current Password" floatingLabelFixed={true} fullWidth={true}/>
+            <TextField type='password' onChange={this.changeNewPassword.bind(this)} value={this.state.newPassword} floatingLabelText="Change Password" floatingLabelFixed={true} fullWidth={true}/>
           <div className='userSubmit'>
             <FlatButton
               label="Submit"
