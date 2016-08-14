@@ -95,6 +95,6 @@ export default class Stats extends Component {
 
   onLog(stat) {
     let character = this.props.character
-    log(`${character.name} uses ${stat.name} and rolls a ${roll(stat.value || 0)} `)
+    log({actor: character.name, gameId: character.gameId, action: stat.name, roll: roll(stat.value || 0)})
   }
 }

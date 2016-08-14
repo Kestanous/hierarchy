@@ -15,7 +15,7 @@ import GamesCard from './GamesCard';
 
 
 
-class GamesView extends Component {
+export default class GamesView extends Component {
   render() {
     return(
 	   	<div  className="gameCardView" >
@@ -26,10 +26,3 @@ class GamesView extends Component {
     );
   }
 }
-
-//meteorize the class
-export default createContainer(() => {
-  return {
-    characters: Characters.find().fetch()
-  };
-}, GamesView);

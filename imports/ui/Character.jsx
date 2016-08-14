@@ -16,8 +16,9 @@ import Items from './character/Items';
 
 class Character extends Component {
   render() {
-    let {character, user} = this.props
-    if (!character) return <div>Loading...</div>
+    let {character, user, ready} = this.props
+    if (!ready) return <div>Loading...</div>
+    if (!character) return <div>Ether you dont have access to this character or it no longer exists</div>
 
     return(
 	   	<div className='container'>
@@ -46,7 +47,9 @@ class Character extends Component {
 
 //meteorize the class
 export default createContainer((route) => {
+  let characterSub = Meteor.subscribe('character', route.params.characterId)
   return {
+    ready: characterSub.ready(),
     character: Characters.findOne({_id: route.params.characterId}),
     user: Meteor.user()
   };

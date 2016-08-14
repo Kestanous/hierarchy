@@ -32,6 +32,7 @@ export default class Players extends Component {
       <Table selectable={false}>
         <TableHeader displaySelectAll={false}>
           <TableRow>
+            <TableHeaderColumn>Email</TableHeaderColumn>
             <TableHeaderColumn>Name</TableHeaderColumn>
             <TableHeaderColumn>Status</TableHeaderColumn>
             <TableHeaderColumn>Remove Player From Game</TableHeaderColumn>
@@ -47,6 +48,7 @@ export default class Players extends Component {
 
   getRow(player, notJoined) {
     return (<TableRow key={player._id}>
+      <TableRowColumn>{player.email}</TableRowColumn>
       <TableRowColumn>{player.username}</TableRowColumn>
       <TableRowColumn>{player.status}</TableRowColumn>
       <TableRowColumn>

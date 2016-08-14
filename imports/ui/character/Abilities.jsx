@@ -127,6 +127,6 @@ export default class Abilities extends Component {
   onLog(ability) {
     let character = this.props.character, statValue = 0, stat = this.props.character.stats.find((s) => s.name == ability.stat)
     if (stat) statValue = stat.value
-    log(`${character.name} uses ${ability.name} and rolls a ${roll(1 + statValue)} `)
+    log({actor: character.name, gameId: character.gameId, action: ability.name, flavor: ability.text, roll: roll(1 + statValue)})
   }
 }

@@ -18,7 +18,7 @@ class ChatLog extends Component {
           {this.props.logs.map((log, i) => {
             return (
               <Paper key={i} className="chatText" zDepth={2}>
-                  {log.text}
+                  {`${log.actor} uses ${log.action} and rolls ${log.roll} `}
               </Paper>
             )
           })}
