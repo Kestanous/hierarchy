@@ -122,18 +122,26 @@ export default class AccountsView extends Component {
         })
         break;
       case 'password':
-        Meteor.call('userForgotPassword', this.state.email, (e, r) => {
+        Accounts.forgotPassword({email: this.state.email}, (e, r) => {
           if (e) this.setState({serverError: e.reason})
           else {
             this.setState({serverError: false})
-            if (r) this.setState({serverResponse: r})
+            this.setState({serverResponse: 'Email Sent'})
           }
         })
+        // Meteor.call('userForgotPassword', this.state.email, (e, r) => {
+        //   if (e) this.setState({serverError: e.reason})
+        //   else {
+        //     this.setState({serverError: false})
+        //     if (r) this.setState({serverResponse: r})
+        //   }
+        // })
         break;
       default: return ''
     }
   }
 }
+
 
 const emailRegex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 const passwordRegex = /^.{8,}$/

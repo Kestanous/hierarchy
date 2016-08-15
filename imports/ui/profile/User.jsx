@@ -46,11 +46,11 @@ class PlayerInfo extends Component {
         </CardText>
         <CardActions>
           <RaisedButton fullWidth={true} onClick={this.props.createGame} label="Create Game" />
-          {this.props.games.length ?
+          {this.props.gamesToPlay.length > 0 ?
             <RaisedButton fullWidth={true} onClick={this.props.createCharacter} label="Create Character" />
           : null}
         </CardActions>
-        {this.props.invitedGames.length ?
+        {this.props.invitedGames.length > 0 ?
           <CardText>
             <Card>
               <CardHeader title="Your Game Invites" subtitle='Click to accept or decline' />

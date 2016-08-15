@@ -10,12 +10,14 @@ import User from './profile/User.jsx';
 
 class Profile extends Component {
   render() {
+    if (!this.props.ready) return <div />
+    let gamesToPlay = this.props.games.filter((g) => g.gm != this.props.user._id)
     return(
 	   	<div className='profile'>
-        <User games={this.props.games} invitedGames={this.props.invitedGames} createGame={this.createGame.bind(this)} createCharacter={this.createCharacter.bind(this)}/>
+        <User games={this.props.games} gamesToPlay={gamesToPlay} invitedGames={this.props.invitedGames} createGame={this.createGame.bind(this)} createCharacter={this.createCharacter.bind(this)}/>
         <GamesView games={this.props.games} user={this.props.user} characters={this.props.characters} />
         <CreateGame ref='game' />
-        {this.props.games.length ? <CreateCharacter ref='character' games={this.props.games} /> : null}
+        {gamesToPlay.length > 0 ? <CreateCharacter ref='character' games={gamesToPlay} /> : null}
 	    </div>
     )
   }
@@ -32,19 +34,25 @@ class Profile extends Component {
 //meteorize the class
 export default createContainer(() => {
   let profileSub = Meteor.subscribe('profile')
-  return {
-    ready: profileSub.ready(),
-    games: Games.find({$or: [{players: Meteor.userId()}, {gm: Meteor.userId()}] }).map((game) => {
-      let gm = Meteor.users.findOne(game.gm)
-      game.gmName = (gm && gm.profile && gm.profile.username)
-      return game
-    }),
-    invitedGames: Games.find({invited: Meteor.userId()}).map((game) => {
-      let gm = Meteor.users.findOne(game.gm)
-      game.gmName = (gm && gm.profile && gm.profile.username)
-      return game
-    }),
-    characters: Characters.find().fetch(),
-    user: Meteor.user()
-  };
+  if (!profileSub.ready()) {
+    return {
+      ready: false
+    };
+  } else {
+   return {
+      ready: true,
+      games: Games.find({$or: [{players: Meteor.userId()}, {gm: Meteor.userId()}] }).map((game) => {
+        let gm = Meteor.users.findOne(game.gm)
+        game.gmName = (gm && gm.profile && gm.profile.username)
+        return game
+      }),
+      invitedGames: Games.find({invited: Meteor.userId()}).map((game) => {
+        let gm = Meteor.users.findOne(game.gm)
+        game.gmName = (gm && gm.profile && gm.profile.username)
+        return game
+      }),
+      characters: Characters.find().fetch(),
+      user: Meteor.user()
+    }
+  }
 }, Profile);

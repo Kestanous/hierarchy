@@ -8,7 +8,7 @@ export default class Form extends Component {
     if (props.validators) {
       this.getChildrenRefs(this.props.children).forEach((key) => {
         if (props.validators[key]) {
-          validations[key] = props.validators[key](Objectifier.get(key, false, this.props.values || {}), this.props.values)
+          validations[key] = props.validators[key](Objectifier.get(key, false, this.props.values || {}), this.props.values || {})
           if (validations[key]) isInvalid = true
         }
       })
