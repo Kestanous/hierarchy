@@ -18,10 +18,10 @@ export default class ResetPassword extends Component {
     this.state = {}
   }
   render() {
-    let token = this.props.params.token
+    let token = this.props.params.token, {password, confirmPassword} = FormValidators
   	return(
       <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
-        <Form save={this.submit.bind(this)} validators={FormValidators.ResetPassword}>
+        <Form save={this.submit.bind(this)} validators={{password, confirmPassword}}>
           <div className='accounts'>
           <h2>Set your password</h2>
           <div className='accountsForm'>

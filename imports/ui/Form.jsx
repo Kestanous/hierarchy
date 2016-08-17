@@ -4,20 +4,11 @@ import React, { Component } from 'react';
 export default class Form extends Component {
   constructor(props) {
 		super(props)
-    let validations = {}, isInvalid = false
-    if (props.validators) {
-      this.getChildrenRefs(this.props.children).forEach((key) => {
-        if (props.validators[key]) {
-          validations[key] = props.validators[key](Objectifier.get(key, false, this.props.values || {}), this.props.values || {})
-          if (validations[key]) isInvalid = true
-        }
-      })
-    }
+    let validate = this.validate(props.values)
 
 		this.state = {
       values: JSON.parse(JSON.stringify(props.values || {})),
-      validations,
-      isInvalid
+      ...validate
     }
 	}
 
@@ -83,8 +74,26 @@ export default class Form extends Component {
     this.getChildrenRefs(child.props.children, out)
   }
 
+  validate(values) {
+    let validations = {}, isInvalid, validators = this.props.validators
+
+    if (!validators) return {validations: {}, isInvalid: false}
+
+    this.getChildrenRefs(this.props.children).forEach((key) => {
+      if (validators[key]) {
+        validations[key] = validators[key](Objectifier.get(key, false, values || {}), values || {})
+        if (validations[key]) isInvalid = true
+      }
+    })
+    return {validations, isInvalid}
+  }
+
+  forceValidate() {
+    this.setState(this.validate(this.state.values))
+  }
+
   onChange(name, event, value, payload) {
-    let out, isInvalid, {values, validations} = this.state,
+    let out, isInvalid, {values} = this.state,
     {validators, update} = this.props
 
     if (payload) out = payload
@@ -93,12 +102,9 @@ export default class Form extends Component {
 
     Objectifier.set(name, out, values)
 
-    if (validators && validators[name]) {
-      validations[name] = validators[name](out, values)
-      isInvalid = Object.values(validations).filter((value) => value).length > 0
-    }
+    let validate = this.validate(values)
 
-    this.setState({values, validations, isInvalid})
+    this.setState({values, ...validate})
     if (update) update(values, this.props.index)
   }
 

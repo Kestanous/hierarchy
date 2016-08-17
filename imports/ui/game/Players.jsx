@@ -23,7 +23,7 @@ export default class Players extends Component {
     const {players, invited, game} = this.props
     return (<div>
       <Form styles={{display: 'flex', displayDirection: 'row', padding: '15px', alignItems: 'center'}}
-        save={this.addPlayer.bind(this)} validators={FormValidators.GameAddPlayer}>
+        save={this.addPlayer.bind(this)} validators={{email: FormValidators.email}}>
         {Forms.GameAddPlayer({flexGrow: 1})}
         <div>
           <RaisedButton ref='submit' primary={true} label="Invite Player" fullWidth={true} />

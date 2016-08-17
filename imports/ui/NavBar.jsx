@@ -37,7 +37,7 @@ export default class NavBar extends Component {
             : '' }
         </div>
         <h2 className="navBarTitle">
-          H e i r a r c h y
+          H i e r a r c h y
         </h2>
         <div>
           <FlatButton

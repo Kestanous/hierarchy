@@ -36,7 +36,7 @@ export default class CreateCharacter extends Component {
     switch (this.state.stepIndex) {
       case 0:
         let games = this.props.games.filter((g) => g.gm != Meteor.userId() )
-        return(<div>
+        return(<Form>
           <SelectField value={games[0]._id} ref='gameId' floatingLabelText="Game" floatingLabelFixed={true} >
             {games.map((game) => {
               return <MenuItem key={game._id} value={game._id} primaryText={game.name} />
@@ -45,14 +45,14 @@ export default class CreateCharacter extends Component {
           <TextField ref='name' floatingLabelText="Character Name" floatingLabelFixed={true} fullWidth={true} />
           <TextField ref='avatar' floatingLabelText="Avatar URL" floatingLabelFixed={true} fullWidth={true} />
           <TextField ref='bio' floatingLabelText="Character Bio" floatingLabelFixed={true} fullWidth={true}  multiLine={true} />
-        </div>)
+        </Form>)
       case 1:
         return (
-          <div>
+          <Form>
             {this.STATS.map((stat, i) => {
               return <TextField key={i} ref={`stats.${stat}`} floatingLabelText={stat} floatingLabelFixed={true} fullWidth={true} />
             })}
-          </div>
+          </Form>
         )
       default:
         return <div />
